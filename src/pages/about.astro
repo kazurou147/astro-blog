@@ -1,20 +1,84 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
+import '../styles/global.css';
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+const pageTitle = "私について";
+const identity = {
+  firstName: "Kazuhiro",
+  lastName: "Maeda",
+  age: 50
+};
+const skills = [
+  "HTML","CSS","JavaScript","Astro","PHP"
+];
+
+const happy = true;
+const finished = false;
+const goal = 3;
+
+const skillColor = "navy";
+const fontWeight = "bold";
+const textCase = "uppercase";
+
 ---
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{ pageTitle }</title>
+  <style define:vars={{ skillColor,fontWeight, textCase}}>
+    h1 {
+      color: red;
+      font-size: 3rem;
+    }
+    .skill {
+      margin: 0;
+      padding: 10px;
+      background-color: #eee;
+      list-style-position: inside;
+      border-radius: 10px;
+    }
 
-<Layout>
-	
+    .skill-item {
+      font-size: 1.5em;
+      color: var(--skillColor);
+      font-weight: var(--fontWeight);
+      text-transform: var(--textCase);
+    }
+  </style>
+</head>
+<body>
   <ul>
     <li><a href="/">HOME</a></li>
     <li><a href="/about">ABOUT</a></li>
     <li><a href="/blog">BLOG</a></li>
   </ul>
   
-  <h1>about</h1>
+  <h1>{ pageTitle }</h1>
+<p>私の名前は{ identity.lastName } { identity.firstName }です。<br>年齢は{ identity.age }歳です。</p>
+<p>スキルは以下の通りです。</p>
+<ul class="skill">
+  { skills.map((skill) => <li class="skill-item">{skill}</li> ) }
+</ul>
 
-	<Welcome />
-</Layout>
+
+<!-- if -->
+{ happy && <p>I am happy to be learning Astro! Astroを学べて幸せです！</p>}
+
+<!-- if else -->
+{finished && <p>I finished this tutorial! このチュートリアルを終えました！</p>}
+
+{goal === 3 ? <p>My goal is to finish in 3 days. 3日で終えるのが目標です。</p> : <p>My goal is not 3 days. 3日が目標ではありません。</p>}
+
+
+
+<p>名前で判別すると、{ identity.lastName === 'Maeda' ? <span>オレ</span> : <span>他人</span> }です</p>
+
+もしページがAboutページだったら、私たちについての文言を出力したい。
+
+{ pageTitle === '私について' && <p>私たちについて</p> }
+
+
+</body>
+</html>	
+  
